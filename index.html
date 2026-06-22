@@ -201,42 +201,49 @@
             <h2>Drop a Custom Commission Order</h2>
             <p>Fill out the parameters below to reserve a custom handmade hat slot. Shipping details are collected instantly to prepare your invoice.</p>
             
-            <form action="https://formspree.io" method="POST">
-                
-                <div class="form-group">
-                    <label for="name">Your Name / Tag</label>
-                    <input type="text" id="name" name="name" required placeholder="Who is this going to?">
-                </div>
+        <div class="form-group">
+    <label for="name">Your Name / Tag</label>
+    <input type="text" id="name" placeholder="Who is this going to?">
+</div>
 
-                <div class="form-group">
-                    <label for="email">Email Address</label>
-                    <input type="email" id="email" name="_replyto" required placeholder="For invoice & tracking updates">
-                </div>
+<div class="form-group">
+    <label for="hat-style">Hat Style Base</label>
+    <select id="hat-style">
+        <option value="Snapback">Snapback Flatbill</option>
+        <option value="Dad Hat">Classic Curved Dad Hat</option>
+        <option value="Beanie">Street Beanie</option>
+    </select>
+</div>
 
-                <div class="form-group">
-                    <label for="hat-style">Hat Style Base</label>
-                    <select id="hat-style" name="hat-style" required>
-                        <option value="Snapback">Snapback Flatbill</option>
-                        <option value="Dad Hat">Classic Curved Dad Hat</option>
-                        <option value="Beanie">Street Beanie</option>
-                    </select>
-                </div>
+<div class="form-group">
+    <label for="details">Custom Text & Details</label>
+    <textarea id="details" placeholder="Specify names, tags, phrases, or layout ideas..."></textarea>
+</div>
 
-                <div class="form-group">
-                    <label for="details">Custom Text & Graff Details</label>
-                    <textarea id="details" name="details" required placeholder="Specify names, tags, phrases, or layout ideas you want painted..."></textarea>
-                </div>
+<div class="form-group">
+    <label for="shipping">Full Shipping Address</label>
+    <textarea id="shipping" placeholder="Street Address, City, State, ZIP Code"></textarea>
+</div>
 
-                <div class="form-group">
-                    <label for="shipping">Full Shipping Address</label>
-                    <textarea id="shipping" name="shipping" required placeholder="Street Address, Apt, City, State, ZIP Code"></textarea>
-                </div>
+<button type="button" class="btn" onclick="sendCustomOrder()">Submit Custom Order</button>
 
-                <!-- Anti-Spam Hidden Config -->
-                <input type="hidden" name="_subject" value="NEW HEXR CUSTOM HAT ORDER!">
+<script>
+function sendCustomOrder() {
+    var name = encodeURIComponent(document.getElementById('name').value);
+    var style = encodeURIComponent(document.getElementById('hat-style').value);
+    var details = encodeURIComponent(document.getElementById('details').value);
+    var shipping = encodeURIComponent(document.getElementById('shipping').value);
+    
+    var emailSubject = "NEW HEXR CUSTOM HAT ORDER";
+    var emailBody = "Name/Tag: " + name + "%0A" +
+                    "Hat Style: " + style + "%0A" +
+                    "Custom Details: " + details + "%0A" +
+                    "Shipping Address: " + shipping;
+                    
+    window.location.href = "mailto:martinezmail1106@://gmail.com" + emailSubject + "&body=" + emailBody;
+}
+</script>
 
-                <button type="submit" class="btn">Submit Custom Order</button>
-            </form>
         </div>
 
     </div>
