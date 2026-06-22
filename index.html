@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HEXR ART | Underground Graffiti Hats</title>
+    <style>
+        /* 90s Throwback & Raw Core Styles */
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            background-color: #111111;
+            color: #ffffff;
+            font-family: 'Courier New', Courier, monospace;
+            background-image: linear-gradient(rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.85)), url('https://transparenttextures.com');
+        }
+        
+        /* Neon Graffiti Header with Custom Image Background */
+        header {
+            text-align: center;
+            padding: 50px 15px 35px 15px;
+            border-bottom: 3px dashed #00ffcc;
+            background: linear-gradient(rgba(17, 17, 17, 0.75), rgba(17, 17, 17, 0.75)), url('banner-background.jpg');
+            background-size: cover;
+            background-position: center;
+        }
+        .logo {
+            font-size: 3.5rem;
+            font-weight: 900;
+            color: #fff;
+            text-shadow: 0 0 10px #ff00ff, 0 0 20px #ff00ff, 0 0 30px #ff00ff;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+        }
+        .tagline {
+            color: #00ffcc;
+            font-size: 1rem;
+            margin-top: 10px;
+            text-transform: uppercase;
+        }
+
+        /* Responsive Pyramid Display Banner */
+        .banner-container {
+            max-width: 600px;
+            margin: 30px auto;
+            padding: 0 15px;
+        }
+        .pyramid-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+        .hat-card {
+            background: #1a1a1a;
+            border: 2px solid #ff00ff;
+            box-shadow: 4px 4px 0px #00ffcc;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        .hat-card img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        .top-center {
+            grid-column: 1 / span 2;
+            max-width: 75%;
+            margin: 0 auto;
+        }
+
+        /* Main Showcase Area with Custom Background Image */
+        .showcase-wrapper {
+            max-width: 600px;
+            margin: 20px auto;
+            border-left: 5px solid #ff00ff;
+            border-right: 5px solid #ff00ff;
+            background: linear-gradient(rgba(22, 22, 22, 0.9), rgba(22, 22, 22, 0.9)), url('supplies-background.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: scroll;
+        }
+
+        /* Content Sections */
+        .content-section {
+            padding: 25px 20px;
+        }
+        .content-section:not(:last-child) {
+            border-bottom: 2px dashed #333333;
+        }
+        h2 {
+            color: #00ffcc;
+            margin-bottom: 15px;
+            font-size: 1.4rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        p {
+            line-height: 1.6;
+            font-size: 1rem;
+            color: #dddddd;
+            margin-bottom: 15px;
+        }
+
+        /* Action Buttons */
+        .btn {
+            display: block;
+            text-align: center;
+            padding: 15px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            text-decoration: none;
+            text-transform: uppercase;
+            border: 2px solid #00ffcc;
+            color: #00ffcc;
+            background: #111111;
+            box-shadow: 4px 4px 0px #ff00ff;
+            cursor: pointer;
+            font-family: 'Courier New', Courier, monospace;
+            width: 100%;
+        }
+        .btn:active {
+            transform: translate(2px, 2px);
+            box-shadow: 2px 2px 0px #ff00ff;
+        }
+
+        /* Underground Order Form Custom Styling */
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+        label {
+            color: #ff00ff;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            font-weight: bold;
+        }
+        input, textarea, select {
+            background: #222222;
+            border: 1px solid #666666;
+            padding: 12px;
+            color: #ffffff;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 1rem;
+            border-radius: 4px;
+        }
+        input:focus, textarea:focus, select:focus {
+            outline: none;
+            border-color: #00ffcc;
+            box-shadow: 0 0 5px #00ffcc;
+        }
+        textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px 15px;
+            font-size: 0.8rem;
+            color: #666666;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">HEXR</div>
+        <div class="tagline">Handmade Graffiti Hats & Original Raw Art</div>
+    </header>
+
+    <!-- Visual Pyramid Banner Section -->
+    <div class="banner-container">
+        <div class="pyramid-grid">
+            <div class="hat-card top-center">
+                <img src="hat-front.jpg" alt="HEXR Hat Front View">
+            </div>
+            <div class="hat-card">
+                <img src="hat-side.jpg" alt="HEXR Hat Side View">
+            </div>
+            <div class="hat-card">
+                <img src="hat-back.jpg" alt="HEXR Hat Back View">
+            </div>
+        </div>
+    </div>
+
+    <!-- Wrapped Section Containing Custom Photo Background -->
+    <div class="showcase-wrapper">
+        
+        <div class="content-section">
+            <h2>The Artist Story</h2>
+            <p>Welcome to the concrete archives of HEXR. Every single hat is an individual original work of art, hand-painted using raw markers and designed to stand out. No mass prints. No shortcuts. Just pure street expression from the ground up.</p>
+        </div>
+
+        <!-- Active Custom Orders Section -->
+        <div class="content-section">
+            <h2>Drop a Custom Commission Order</h2>
+            <p>Fill out the parameters below to reserve a custom handmade hat slot. Shipping details are collected instantly to prepare your invoice.</p>
+            
+            <form action="https://formspree.io" method="POST">
+                
+                <div class="form-group">
+                    <label for="name">Your Name / Tag</label>
+                    <input type="text" id="name" name="name" required placeholder="Who is this going to?">
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" name="_replyto" required placeholder="For invoice & tracking updates">
+                </div>
+
+                <div class="form-group">
+                    <label for="hat-style">Hat Style Base</label>
+                    <select id="hat-style" name="hat-style" required>
+                        <option value="Snapback">Snapback Flatbill</option>
+                        <option value="Dad Hat">Classic Curved Dad Hat</option>
+                        <option value="Beanie">Street Beanie</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="details">Custom Text & Graff Details</label>
+                    <textarea id="details" name="details" required placeholder="Specify names, tags, phrases, or layout ideas you want painted..."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="shipping">Full Shipping Address</label>
+                    <textarea id="shipping" name="shipping" required placeholder="Street Address, Apt, City, State, ZIP Code"></textarea>
+                </div>
+
+                <!-- Anti-Spam Hidden Config -->
+                <input type="hidden" name="_subject" value="NEW HEXR CUSTOM HAT ORDER!">
+
+                <button type="submit" class="btn">Submit Custom Order</button>
+            </form>
+        </div>
+
+    </div>
+
+    <footer>
+        &copy; 2026 HEXR.ART. All Rights Reserved.
+    </footer>
+
+</body>
+</html>
