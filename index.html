@@ -235,9 +235,6 @@
                 <!-- Anti-Spam Hidden Config -->
                 <input type="hidden" name="_subject" value="NEW HEXR CUSTOM HAT ORDER!">
 
-                <!-- Direct Formspree Next Page Redirect -->
-                <input type="hidden" name="_next" value="https://buy.stripe.com/fZuaEX6Oz6bUeel1cS0x200">
-
                 <button type="submit" id="submit-btn" class="btn">Submit Custom Order</button>
 
             </form>
@@ -245,18 +242,41 @@
 
     </div>
 
-    <!-- Direct Backup Redirect Handler -->
+    <!-- Pure JSON Submission Script -->
     <script>
       const form = document.getElementById('custom-hat-form');
       const submitBtn = document.getElementById('submit-btn');
 
-      form.addEventListener('submit', function() {
-        submitBtn.innerText = "Redirecting to Payment...";
+      form.addEventListener('submit', async function(e) {
+        e.preventDefault();
         
-        // Secondary safety fallback: Forces location change after short delay
-        setTimeout(function() {
+        submitBtn.innerText = "Redirecting to Stripe...";
+        submitBtn.disabled = true;
+
+        const formData = new FormData(form);
+        const object = {};
+        formData.forEach((value, key) => object[key] = value);
+        const json = JSON.stringify(object);
+
+        try {
+          const response = await fetch(form.action, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Accept': 'application/json'
+            },
+            body: json
+          });
+
+          if (response.ok) {
+            window.location.href = "https://buy.stripe.com/fZuaEX6Oz6bUeel1cS0x200";
+          } else {
+            alert("Error sending order details. Redirecting to payment page anyway...");
+            window.location.href = "https://buy.stripe.com/fZuaEX6Oz6bUeel1cS0x200";
+          }
+        } catch (error) {
           window.location.href = "https://buy.stripe.com/fZuaEX6Oz6bUeel1cS0x200";
-        }, 1200);
+        }
       });
     </script>
 
