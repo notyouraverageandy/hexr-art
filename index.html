@@ -201,7 +201,7 @@
             <h2>Drop a Custom Commission Order</h2>
             <p>Fill out the parameters below to reserve a custom handmade hat slot. Shipping details are collected instantly to prepare your invoice.</p>
 
-            <form id="custom-hat-form" action="https://formspree.io/f/mdendrlq" method="POST">
+            <form id="custom-hat-form">
 
                 <div class="form-group">
                     <label for="name">Your Name / Tag</label>
@@ -235,46 +235,43 @@
                 <!-- Anti-Spam Hidden Config -->
                 <input type="hidden" name="_subject" value="NEW HEXR CUSTOM HAT ORDER!">
 
-                <button type="submit" id="submit-btn" class="btn">Submit Custom Order</button>
+                <button type="button" id="submit-btn" class="btn" onclick="submitCustomOrder()">Submit Custom Order</button>
 
             </form>
         </div>
 
     </div>
 
-    <!-- Formspree Official SDK -->
-<script src="https://unpkg.com/@formspree/ajax@1" defer></script>
+    <!-- Direct Low-Level XHR Redirect Handler -->
+    <script>
+      function submitCustomOrder() {
+        var form = document.getElementById('custom-hat-form');
+        var submitBtn = document.getElementById('submit-btn');
 
-<script>
-  window.addEventListener('DOMContentLoaded', function() {
-    const form = document.getElementById('custom-hat-form');
-    const submitBtn = document.getElementById('submit-btn');
-
-    form.addEventListener('submit', function(e) {
-      e.preventDefault();
-      
-      submitBtn.innerText = "Redirecting to Payment...";
-      submitBtn.disabled = true;
-
-      const data = new FormData(form);
-
-      fetch(form.action, {
-        method: 'POST',
-        body: data,
-        headers: {
-          'Accept': 'application/json'
+        // Check HTML standard input validation
+        if (!form.checkValidity()) {
+          form.reportValidity();
+          return;
         }
-      }).then(response => {
-        // Skips the Formspree page completely and loads Stripe
-        window.location.href = "https://buy.stripe.com/fZuaEX6Oz6bUeel1cS0x200";
-      }).catch(error => {
-        // Fallback redirect even if network hiccups
-        window.location.href = "https://buy.stripe.com/fZuaEX6Oz6bUeel1cS0x200";
-      });
-    });
-  });
-</script>
 
+        submitBtn.innerText = "Redirecting to Payment...";
+        submitBtn.disabled = true;
+
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "https://formspree.io/f/mdendrlq", true);
+        xhr.setRequestHeader("Accept", "application/json");
+
+        xhr.onreadystatechange = function() {
+          if (xhr.readyState === XMLHttpRequest.DONE) {
+            // Unconditional hard redirect to Stripe regardless of Formspree output state
+            window.location.assign("https://buy.stripe.com/fZuaEX6Oz6bUeel1cS0x200");
+          }
+        };
+
+        var formData = new FormData(form);
+        xhr.send(formData);
+      }
+    </script>
 
     <footer>
         &copy; 2026 HEXR.ART. All Rights Reserved.
