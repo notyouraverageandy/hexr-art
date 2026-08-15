@@ -100,6 +100,21 @@
             margin-bottom: 15px;
         }
 
+        /* CapCut Video Embed Container */
+        .video-container {
+            width: 100%;
+            overflow: hidden;
+            border: 2px solid #00ffcc;
+            box-shadow: 4px 4px 0px #ff00ff;
+            border-radius: 4px;
+            background-color: #000000;
+        }
+        .video-container video {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
         /* Action Buttons */
         .btn {
             display: block;
@@ -194,6 +209,17 @@
         <div class="content-section">
             <h2>The Artist Story</h2>
             <p>Welcome to the concrete archives of HEXR. Every single hat is an individual original work of art, hand-painted using raw markers and designed to stand out. No mass prints. No shortcuts. Just pure street expression from the ground up.</p>
+        </div>
+
+        <!-- CapCut Video Edit Section (Autoplay Enabled) -->
+        <div class="content-section">
+            <h2>Process & Showcase</h2>
+            <div class="video-container">
+                <video autoplay muted loop playsinline controls preload="metadata">
+                    <source src="promo-video.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
         </div>
 
         <!-- Active Custom Orders Section -->
