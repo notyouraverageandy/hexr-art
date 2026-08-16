@@ -38,39 +38,10 @@
             text-transform: uppercase;
         }
 
-        /* Responsive Pyramid Display Banner */
-        .banner-container {
-            max-width: 600px;
-            margin: 30px auto;
-            padding: 0 15px;
-        }
-        .pyramid-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 15px;
-        }
-        .hat-card {
-            background: #1a1a1a;
-            border: 2px solid #ff00ff;
-            box-shadow: 4px 4px 0px #00ffcc;
-            border-radius: 4px;
-            overflow: hidden;
-        }
-        .hat-card img {
-            width: 100%;
-            height: auto;
-            display: block;
-        }
-        .top-center {
-            grid-column: 1 / span 2;
-            max-width: 75%;
-            margin: 0 auto;
-        }
-
         /* Main Showcase Area with Custom Background Image */
         .showcase-wrapper {
             max-width: 600px;
-            margin: 20px auto;
+            margin: 30px auto;
             border-left: 5px solid #ff00ff;
             border-right: 5px solid #ff00ff;
             background: linear-gradient(rgba(22, 22, 22, 0.9), rgba(22, 22, 22, 0.9)), url('supplies-background.jpg');
@@ -100,19 +71,31 @@
             margin-bottom: 15px;
         }
 
-        /* CapCut Video Embed Container */
-        .video-container {
-            width: 100%;
-            overflow: hidden;
+        /* Video Showcase & Grid Styling */
+        .video-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .video-card {
             border: 2px solid #00ffcc;
             box-shadow: 4px 4px 0px #ff00ff;
             border-radius: 4px;
             background-color: #000000;
+            overflow: hidden;
         }
-        .video-container video {
+        .video-card video {
             width: 100%;
             height: auto;
             display: block;
+        }
+        .video-caption {
+            padding: 10px;
+            font-size: 0.85rem;
+            color: #00ffcc;
+            text-transform: uppercase;
+            background: #111111;
+            border-top: 1px dashed #333333;
         }
 
         /* Action Buttons */
@@ -135,6 +118,15 @@
         .btn:active {
             transform: translate(2px, 2px);
             box-shadow: 2px 2px 0px #ff00ff;
+        }
+
+        .btn-ig {
+            border-color: #ff00ff;
+            color: #ff00ff;
+            box-shadow: 4px 4px 0px #00ffcc;
+        }
+        .btn-ig:active {
+            box-shadow: 2px 2px 0px #00ffcc;
         }
 
         /* Underground Order Form Custom Styling */
@@ -188,38 +180,36 @@
         <div class="tagline">Handmade Graffiti Hats & Original Raw Art</div>
     </header>
 
-    <!-- Visual Pyramid Banner Section -->
-    <div class="banner-container">
-        <div class="pyramid-grid">
-            <div class="hat-card top-center">
-                <img src="hat-front.jpg" alt="HEXR Hat Front View">
-            </div>
-            <div class="hat-card">
-                <img src="hat-side.jpg" alt="HEXR Hat Side View">
-            </div>
-            <div class="hat-card">
-                <img src="hat-back.jpg" alt="HEXR Hat Back View">
-            </div>
-        </div>
-    </div>
-
     <!-- Wrapped Section Containing Custom Photo Background -->
     <div class="showcase-wrapper">
 
         <div class="content-section">
-            <h2>The Artist Story</h2>
-            <p>Welcome to the concrete archives of HEXR. Every single hat is an individual original work of art, hand-painted using raw markers and designed to stand out. No mass prints. No shortcuts. Just pure street expression from the ground up.</p>
+            <h2>H E X R</h2>
+            <p>Welcome! your time is appreciated. HEXR is a standalone graffiti artist, based out of LOS ANGELES, California. Just another starving artist, trying to make valuable pieces for those who might be interested. Take a look around!</p>
         </div>
 
-        <!-- CapCut Video Edit Section -->
+        <!-- Satisfied Customers & Unboxings Section -->
         <div class="content-section">
-            <h2>Process & Showcase</h2>
-            <div class="video-container">
-                <video controls playsinline preload="metadata">
-                    <source src="promo-video.mp4" type="video/mp4">
-                    Your browser does not support the video tag.
-                </video>
+            <h2>Satisfied Customers & Unboxings</h2>
+            <p>Check out raw unboxings and visual showcases from clients rocking custom HEXR work.</p>
+            
+            <div class="video-grid">
+                <!-- Featured Video -->
+                <div class="video-card">
+                    <video autoplay muted loop playsinline controls preload="metadata">
+                        <source src="promo-video.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                    <div class="video-caption">AUDIO BOSS 420 • Custom Flatbill Unboxing</div>
+                </div>
             </div>
+        </div>
+
+        <!-- Social Connect Section -->
+        <div class="content-section">
+            <h2>Follow The Movement</h2>
+            <p>Catch continuous work-in-progress drops, custom calligraffiti showcases, and behind-the-scenes hand-painting process directly on Instagram.</p>
+            <a href="https://instagram.com/hexr.art" target="_blank" rel="noopener noreferrer" class="btn btn-ig">Follow @hexr.art on IG</a>
         </div>
 
         <!-- Active Custom Orders Section -->
@@ -242,9 +232,18 @@
                 <div class="form-group">
                     <label for="hat-style">Hat Style Base</label>
                     <select id="hat-style" name="hat-style" required>
-                        <option value="Snapback">Snapback Flatbill</option>
-                        <option value="Dad Hat">Classic Curved Dad Hat</option>
-                        <option value="Beanie">Street Beanie</option>
+                        <option value="Flat Bill Trucker Cap">Flat Bill Trucker Cap</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="hat-color">Base Color</label>
+                    <select id="hat-color" name="hat-color" required>
+                        <option value="" disabled selected>Select a Color</option>
+                        <option value="Red & White">Red & White</option>
+                        <option value="Pink & White">Pink & White</option>
+                        <option value="Black & White">Black & White</option>
+                        <option value="Blue & White">Blue & White</option>
                     </select>
                 </div>
 
