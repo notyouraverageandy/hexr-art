@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>UAP Intercept</title>
+    <script async src="https://googlesyndication.com" crossorigin="anonymous"></script>
+    <script>
+        window.adsbygoogle = window.adsbygoogle || [];
+        var adBreak = adConfig = function(o) { adsbygoogle.push(o); };
+        adConfig({ preloadAdBreaks: 'on' });
+    </script>
+    <style>
+        * { box-sizing: border-box; user-select: none; margin: 0; padding: 0; font-family: monospace; }
+        body { background: #020617; color: #38bdf8; display: flex; flex-direction: column; height: 100vh; overflow: hidden; }
+        .hud { display: flex; justify-content: space-between; padding: 15px; background: #0f172a; border-bottom: 2px solid #38bdf8; font-weight: bold; }
+        #arena { flex-grow: 1; width: 100%; position: relative; background: #020617; overflow: hidden; }
+        #base { position: absolute; bottom: 0; width: 100%; height: 20px; background: #38bdf8; box-shadow: 0 0 15px #38bdf8; }
+        .uap { position: absolute; width: 50px; height: 35px; background: #e11d48; border-radius: 50%; cursor: pointer; box-shadow: 0 0 15px #e11d48; }
+        .overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(2,6,23,0.95); display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 50; padding: 20px; }
+        .panel { background: #0f172a; padding: 25px; border-radius: 8px; border: 2px solid #38bdf8; text-align: center; max-width: 350px; }
+        .btn { background: #e11d48; color: #fff; border: none; padding: 12px 24px; font-weight: bold; cursor: pointer; border-radius: 4px; margin-top: 15px; width: 100%; }
+    </style>
+</head>
+<body>
+
+    <div id="menu" class="overlay">
+        <div class="panel">
+            <h2 id="m-title" style="color:#f43f5e; margin-bottom:10px;">SYSTEM DEFENSE</h2>
+            <p id="m-desc">Intercept the incoming UAPs before they breach the perimeter network grid.</p>
+            <button class="btn" onclick="startGame()">ENGAGE GRID</button>
+        </div>
+    </div>
+
+    <div class="hud">
+        <div>LVL: <span id="l-lvl">1</span></div>
+        <div style="color:#f43f5e">HP: <span id="l-hp">100%</span></div>
+        <div style="color:#eab308">INTEL: <span id="l-scr">0</span></div>
+    </div>
+
+    <div id="arena"><div id="base"></div></div>
+
+    <script>
+        let score = 0, health = 100, level = 1, threats = [], eLoop, sLoop, speed = 2, sInterval = 1500;
+        const arena = document.getElementById('arena');
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
+        function sound(type) {
+            if (audioCtx.state === 'suspended') audioCtx.resume();
+            const osc = audioCtx.createOscillator(), gain = audioCtx.createGain();
+            osc.connect(gain); gain.connect(audioCtx.destination);
+            osc.frequency.setValueAtTime(type === 'zap' ? 600 : type === 'hit' ? 120 : 440, audioCtx.currentTime);
+            osc.frequency.linearRampToValueAtTime(type === 'zap' ? 150 : 30, audioCtx.currentTime + 0.1);
+            gain.gain.setValueAtTime(0.05, audioCtx.currentTime);
+            osc.start(); osc.stop(audioCtx.currentTime + 0.1);
+        }
+
+        function startGame() {
+            document.getElementById('menu').style.display = 'none';
+            score = 0; health = 100; level = 1; speed = 2; sInterval = 1500;
+            threats.forEach(t => t.el.remove()); threats = [];
+            updateHUD(); sound('lvl');
+            eLoop = setInterval(updatePhysics, 1000 / 60);
+            sLoop = setInterval(spawnUAP, sInterval);
+        }
+
+        function spawnUAP() {
+            const el = document.createElement('div');
+            el.className = 'uap';
+            const x = Math.floor(Math.random() * (arena.clientWidth - 50));
+            el.style.left = x + 'px'; el.style.top = '-40px';
+            el.addEventListener('touchstart', (e) => { e.preventDefault(); clickUAP(el); });
+            el.addEventListener('mousedown', () => clickUAP(el));
+            arena.appendChild(el);
+            threats.push({ el, y: -40 });
+        }
+
+        function clickUAP(el) {
+            const idx = threats.findIndex(t => t.el === el);
+            if (idx === -1) return;
+            sound('zap');
+            score += 10 * level;
+            el.remove(); threats.splice(idx, 1);
+            if (score >= level * 100) {
+                level++; speed += 0.6; sInterval = Math.max(500, sInterval - 200);
+                sound('lvl'); clearInterval(sLoop); sLoop = setInterval(spawnUAP, sInterval);
+                adBreak({ type: 'next', name: 'lvl-up', afterAd: () => updateHUD() });
+            }
+            updateHUD();
+        }
+
+        function updatePhysics() {
+            const limit = arena.clientHeight - 20;
+            for (let i = threats.length - 1; i >= 0; i--) {
+                let t = threats[i]; t.y += speed;
+                t.el.style.transform = `translateY(${t.y}px)`;
+                if (t.y >= limit) {
+                    sound('hit'); health -= 20; t.el.remove(); threats.splice(i, 1);
+                    if (health <= 0) {
+                        health = 0; clearInterval(eLoop); clearInterval(sLoop);
+                        document.getElementById('m-title').innerText = "GRID BREACHED";
+                        document.getElementById('m-desc').innerText = `Perimeters failed at Level ${level}. Total Intel secured: ${score}.`;
+                        document.getElementById('menu').style.display = 'flex';
+                    }
+                    updateHUD();
+                }
+            }
+        }
+
+        function updateHUD() {
+            document.getElementById('l-lvl').innerText = level;
+            document.getElementById('l-hp').innerText = health + '%';
+            document.getElementById('l-scr').innerText = score;
+        }
+    </script>
+</body>
+</html>
